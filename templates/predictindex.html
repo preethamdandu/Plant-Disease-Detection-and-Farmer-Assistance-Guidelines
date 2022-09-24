@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Agro Site</title>
+    {% load static %}
+    <link href="{% static 'styles1.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Josefin+Sans:wght@400&display=swap" rel="stylesheet">
+  </head>
+
+  <nav class="navbar navbar-expand-lg navbar-light sticky-top" style="background-color:#f4f9f9">
+  <a class="navbar-brand" href="/" style="font-family: 'Lobster', cursive;font-size:25px">Agro Site <img src="{% static 'img/leaf.svg' %}" style="height:40px"></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="{%	url	'account:logout'	%}" style="color:black">logout</a>
+      </li>
+    </ul>
+  </div>
+  </nav>
+<body>
+<div class="choice_body">
+  <div class="row" style="margin-left:240px">
+  <div class="pricing-column col-lg-5">
+  <div class="card" style="margin-top:150px;">
+    <div class="card-header">
+      <h3 align="center">Disease detection</h3>
+    </div>
+    <div class="card-body">
+      <img class="contractor_pic1" src="{% static 'img/leaf.svg' %}"><br>
+      <center><h4>Facing trouble with the crop? <br> Upload its pic and get to know the disease</h4>
+      <form action="/diseaseupload" method="GET">
+      <input type="submit" name="a1" class="btn btn-primary" value="Detect"></center>
+      </form>
+    </div>
+  </div>
+  </div>
+  <div class="pricing-column col-lg-5">
+  <div class="card" style="margin-top:150px;">
+    <div class="card-header">
+      <h3 align="center">Weather forecasting</h3>
+    </div>
+    <div class="card-body">
+      <img class="contractor_pic1" src="{% static 'img/weather.svg' %}"><br>
+      <center><h4>Know the future weather conditions <br>at your place</h4>
+      <form action="/citySelect" method="GET">
+      <input type="submit" name="a2" class="btn btn-primary" value="Check"></center>
+      </form>
+    </div>
+  </div>
+  </div>
+  </div>
+  <div>
+    <center>
+  <div class="card" style="margin-top:80px;box-shadow: 0 1px 4px 0;width:500px;">
+    <div class="card-header">
+      <h3 align="center">Q/A Portal</h3>
+    </div>
+    <div class="card-body">
+      <img class="contractor_pic1" src="{% static 'img/doubt.png' %}"><br>
+      <center><h4>Clarify your doubts with experts</h4>
+      <form action="/questions" method="GET">
+      <input type="submit" name="a2" class="btn btn-primary" value="Open"></center>
+      </form>
+    </div>
+  </div>
+  </div>
+</div></center>
+</div>
+</body>

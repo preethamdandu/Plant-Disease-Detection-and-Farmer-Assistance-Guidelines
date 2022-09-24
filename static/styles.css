@@ -1,0 +1,159 @@
+.s1{
+  height:600px
+}
+
+.head{
+  font-family: 'Josefin Sans', sans-serif;
+  text-align: center;
+  background-color: #cdd0cb;
+  padding: 20px;
+  font-size: 22px;
+}
+
+.projpic
+{
+height:100px;
+}
+
+.middle{
+  text-align:center;
+}
+
+.ptext{
+  font-size:20px;
+}
+
+hr{
+  width:50%;
+}
+
+.login_card{
+  width: 50%;
+  border-radius: 5px;
+  background-color: #7eca9c;
+  border-color:;
+  border-style: ;
+  border-radius: 10px;
+}
+
+.utext,.upass{
+  width: 94%;
+  padding: 12px 20px;
+  margin: 8px 10px;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+.login_back{
+  background-color: #ccffbd;
+}
+
+.grain_img{
+  position: relative;
+  height:200px;
+  width: 200px;
+  bottom:200px;
+  right:30px;
+  float:right;
+}
+
+.grain_img1{
+  position: relative;
+  height:200px;
+  width: 200px;
+  bottom:200px;
+  left:30px;
+  float:left;
+}
+
+.contractor_pic{
+  width: 40%;
+  border-radius: 50%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.contractor_pic1{
+  width: 40%;
+  border-radius: 50%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.apply_box{
+       width: 50%;
+       border-radius: 5px;
+       text-align:center;
+       background-color: #f9f9f9;
+}
+
+.apply_box:hover{
+  box-shadow: 4px 4px 20px #7eca9c;
+}
+
+.job_table{
+  text-align: center;
+  width:100%;
+}
+
+.job_table th{
+  font-size:20px;
+  background-color: #7eca9c;
+  color: black;
+}
+
+.j_head{
+color:white;background-color:#00917c;padding:10px;font-family: 'Noto Serif', serif;
+}
+
+.j_body{
+  background-color: #202060;
+}
+
+.inputtext{
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  background-color: white;
+  padding: 8px 20px 8px 30px;
+  width:300px;
+}
+
+.inputtext1{
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  padding: 8px 20px 8px 30px;
+  width:400px;
+  background-color: #fafafa;
+  background-image: url('https://image.flaticon.com/icons/svg/456/456178.svg');
+  background-size: 40px;
+  background-position: 350px 0px;
+  background-repeat: no-repeat;
+}
+
+.inputselect{
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  background-color: white;
+  width:300px;
+  padding: 8px 8px;
+}
+
+.inputarea{
+  height: 150px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  font-size: 16px;
+  resize: none;
+}

@@ -1,0 +1,52 @@
+.contractor_pic1{
+  width: 40%;
+  border-radius: 50%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.contractor_pic2{
+  width: 200px;
+  height:170px;
+  display: inline-block;
+}
+
+.card {
+  box-shadow: 0 1px 4px 0;
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px 0;
+}
+
+.choice_body{
+  background-color: #E4E9FD;
+  background-image: -webkit-linear-gradient(65deg, #035aa6 50%, #40bad5 50%);
+  min-height: 1000px;
+  font-family: 'Prompt', sans-serif;
+}
+
+.job_table{
+  text-align: center;
+}
+
+.job_table th{
+  font-size:20px;
+  background-color: #7eca9c;
+  color: black;
+}
+
+
+.j_body{
+  background-color: #202060;
+}
+
+.login_back{
+  background-color: #ccffbd;
+}
+
+.disout{
+  width:80%;
+  background-color: green;
+}

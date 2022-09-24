@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Agro Site</title>
+    {% load static %}
+    <link href="{% static 'styles1.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Josefin+Sans:wght@400&display=swap" rel="stylesheet">
+  </head>
+
+  <nav class="navbar navbar-expand-lg navbar-light sticky-top" style="background-color:#f4f9f9">
+  <a class="navbar-brand" href="/" style="font-family: 'Lobster', cursive;font-size:25px">Agro Site <img src="{% static 'img/leaf.svg' %}" style="height:40px"></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="{%	url	'account:logout'	%}" style="color:black">logout</a>
+      </li>
+    </ul>
+  </div>
+  </nav>
+  <body style="background-color:#faf3f3">
+  <h2 style="font-family: 'Righteous', cursive;margin:30px 10px 10px 20px;font-weight:500;font-size:40px;">Instructions for uploading images:</h2>
+  <ol>
+    <li>Don't upload the complete crop image.</li>
+    <li>Upload only the effected leaf image.</li>
+    <li>Take the image snap in adequate amount of light.</li>
+    <li>Check the below sample images while uploading</li>
+  </ol>
+  <center>
+  <img class="contractor_pic2" style="margin:20px;" src="{% static 'img/sample1.jpg' %}">
+  <img class="contractor_pic2" style="margin:20px;" src="{% static 'img/sample2.jpg' %}">
+  <img class="contractor_pic2" style="margin:20px;" src="{% static 'img/sample3.jpg' %}">
+  </center>
+<h2 style="font-family: 'Righteous', cursive;margin:30px 10px 10px 20px;font-weight:500;font-size:40px;">Uplaod Image for Classification</h2>
+<br>
+<form method="post" enctype="multipart/form-data" action="predictImage">
+{% csrf_token %}
+<center>
+<table class="job_table" cellpadding="10">
+  <tr>
+      <td style="font-size:20px;">Upload Image File Here:</td>
+      <td><input name="filePath" type="file"></td>
+  </tr>
+  <tr>
+      <td style="font-size:20px;">Select language</td>
+      <td><select name="state" style="box-sizing: border-box;border: 2px solid #ccc;border-radius: 4px;font-size: 16px;background-color: white;width:300px;padding: 8px 8px;">
+        <option value="bengali">Bengali</option>
+        <option value="gujarati">Gujarati</option>
+        <option value="hindi">Hindi</option>
+        <option value="kannada">Kannada</option>
+        <option value="malayalam">Malayalam</option>
+        <option value="marathi">Marathi</option>
+        <option value="punjabi">Punjabi</option>
+        <option value="tamil">Tamil</option>
+        <option value="telugu">Telugu</option>
+      </select></td>
+  </tr>
+</table>
+<br>
+<input type="submit" class="btn btn-primary" value="Detect">
+<br>
+</form>
+<br><br>
+<div style="width:80%;background-color: #c6ffc1;border-style: solid;visibility:{{v}}">
+  Name: {{name}} <br><br>
+  Disease description: {{des}} <br><br>
+  {{sol}} <br><br>
+</div><br>
+<div style="width:80%;background-color: #c6ffc1;border-style: solid;visibility:{{v}}">
+  Name: {{tname}} <br><br>
+  Disease description: {{tdes}} <br><br>
+  {{tsol}} <br><br>
+</div>
+</center>
+</body>

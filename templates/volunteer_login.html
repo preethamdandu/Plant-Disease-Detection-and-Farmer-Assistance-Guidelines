@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Agro Site</title>
+    {% load static %}
+    <link href="{% static 'styles.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Josefin+Sans:wght@400&display=swap" rel="stylesheet">
+  </head>
+  <nav class="navbar navbar-expand-lg navbar-light sticky-top" style="background-color:#f4f9f9">
+  <a class="navbar-brand" href="/" style="font-family: 'Lobster', cursive;font-size:25px">Agro Site <img src="{% static 'img/leaf.svg' %}" style="height:40px"></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/" style="color:black">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{%	url	'account:farmerlogin'	%}" style="color:black">Farmer</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{%	url	'account:volunteerlogin'	%}" style="color:black">Volunteer</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#" style="color:black">Market Price</a>
+      </li>
+    </ul>
+  </div>
+  </nav>
+
+   <body class="login_back">
+  <div>
+     <h2 style="font-family: 'Righteous', cursive;margin:30px auto;font-weight:500;font-size:40px;text-align:center;">VOLUNTEER LOGIN</h2>
+  </div>
+  <!--<img  style="height:400px;padding:0% 5%;display:inline-block;" src="https://image.flaticon.com/icons/svg/1283/1283187.svg">-->
+  <div style="margin:auto;" class="login_card">
+    <img class="contractor_pic1" src="{% static 'img/volunteer1.svg' %}">
+    <form action="/volunteerlogin" method="post">
+      {% csrf_token %}
+       <label for="uname" style="font-size:17px"><b>&nbsp;&nbsp;&nbsp;User Name</b></label><br>
+       <input type="text" name="uname" class="utext" placeholder="Enter username"><br>
+       <label for="psw" style="font-size:17px"><b>&nbsp;&nbsp;&nbsp;Password</b></label><br>
+       <input type="password" placeholder="Enter Password" class="upass" name="psw" required><br>
+       <center>
+         <button type="submit" class="btn btn-primary btn-lg">Login</button><br>
+       </center>
+       <p style="display:inline-block;margin-right:10px;">Not have an account?</p><a href="{%	url	'account:volunteersignup'	%}"><input type="button" name="signin" value="signup" style="display:inline-block" class="btn btn-success btn-sm"></a>
+     </form>
+   </div>
+  <img src="{% static 'img/grain.svg' %}" class="grain_img">
+  <img src="{% static 'img/grain.svg' %}" class="grain_img1">
+</body>
