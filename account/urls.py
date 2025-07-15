@@ -24,6 +24,18 @@ urlpatterns = [
     path('comsub',views.comsub,name='comsub'),
     path('comsub1',views.comsub1,name='comsub1'),
     path('volunteerdash',views.volunteerdash,name='volunteerdash'),
+    path('pending_questions', views.pending_questions, name='pending_questions'),
+    path('answer_history', views.answer_history, name='answer_history'),
+    path('resource_list', views.resource_list, name='resource_list'),
+    path('upload_resource', views.upload_resource, name='upload_resource'),
+    path('message_list', views.message_list, name='message_list'),
+    path('send_message', views.send_message, name='send_message'),
+    
+    # New advanced features
+    path('api/notifications/', views.get_notifications, name='get_notifications'),
+    path('api/notifications/<int:notification_id>/read/', views.mark_notification_read, name='mark_notification_read'),
+    path('api/dashboard_stats/', views.dashboard_stats, name='dashboard_stats'),
+    path('api/search/', views.advanced_search, name='advanced_search'),
     #path('weatherdata',views.weatherdata,name='weatherdata'),
     path('logout',views.logout,name="logout")
 ]

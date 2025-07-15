@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow">
+        <div class="card-header bg-info text-white">
+          <h3 class="mb-0" style="font-family: 'Josefin Sans', sans-serif;">My Answer History</h3>
+        </div>
+        <div class="card-body" style="background-color: #f8f9fa;">
+          {% if answer_data %}
+            <ul class="list-group list-group-flush">
+              {% for a in answer_data %}
+                <li class="list-group-item">
+                  <b>Q:</b> {{ a.question }}<br>
+                  <b>Your Answer:</b> {{ a.answer }}
+                </li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            <div class="alert alert-info mt-3 mb-0">You have not answered any questions yet.</div>
+          {% endif %}
+        </div>
+        <div class="card-footer text-right">
+          <a href="/volunteerdash" class="btn btn-secondary">Back to Dashboard</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %} 

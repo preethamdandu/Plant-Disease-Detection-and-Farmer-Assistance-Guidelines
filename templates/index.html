@@ -21,18 +21,31 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav ml-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="/" style="color:black">Home</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{%	url	'account:farmerlogin'	%}" style="color:black">Farmer</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{%	url	'account:volunteerlogin'	%}" style="color:black">Volunteer</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{%	url	'account:selectcity1'	%}" style="color:black">Market Price</a>
-      </li>
+      {% if is_farmer %}
+        <li class="nav-item">
+          <a class="nav-link" href="/predictindex" style="color:black">Dashboard</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'account:logout' %}" style="color:black">Logout</a>
+        </li>
+      {% elif is_volunteer %}
+        <li class="nav-item">
+          <a class="nav-link" href="/volunteerdash" style="color:black">Dashboard</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'account:logout' %}" style="color:black">Logout</a>
+        </li>
+      {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'account:farmerlogin' %}" style="color:black">Farmer</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'account:volunteerlogin' %}" style="color:black">Volunteer</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'account:selectcity1' %}" style="color:black">Market Price</a>
+        </li>
+      {% endif %}
     </ul>
   </div>
 </nav>

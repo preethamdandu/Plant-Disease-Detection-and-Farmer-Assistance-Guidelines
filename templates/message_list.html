@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-10">
+      <div class="card shadow">
+        <div class="card-header bg-dark text-white">
+          <h3 class="mb-0" style="font-family: 'Josefin Sans', sans-serif;">Messages</h3>
+        </div>
+        <div class="card-body" style="background-color: #f8f9fa;">
+          <a href="/send_message" class="btn btn-success mb-3">Send New Message</a>
+          {% if messages %}
+            <ul class="list-group list-group-flush">
+              {% for m in messages %}
+                <li class="list-group-item">
+                  <b>From:</b>
+                  {% if m.sender_farmer %}Farmer: {{ m.sender_farmer.uname }}{% endif %}
+                  {% if m.sender_volunteer %}Volunteer: {{ m.sender_volunteer.uname }}{% endif %}<br>
+                  <b>To:</b>
+                  {% if m.receiver_farmer %}Farmer: {{ m.receiver_farmer.uname }}{% endif %}
+                  {% if m.receiver_volunteer %}Volunteer: {{ m.receiver_volunteer.uname }}{% endif %}<br>
+                  <b>Message:</b> {{ m.content }}<br>
+                  <b>Sent at:</b> {{ m.sent_at|date:"Y-m-d H:i" }}
+                </li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            <div class="alert alert-info mt-3 mb-0">No messages yet.</div>
+          {% endif %}
+        </div>
+        <div class="card-footer text-right">
+          <a href="/volunteerdash" class="btn btn-secondary">Back to Dashboard</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %} 

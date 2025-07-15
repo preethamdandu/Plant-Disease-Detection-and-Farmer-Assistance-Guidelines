@@ -36,25 +36,38 @@
   </div>
   </nav>
 
-   <body class="login_back">
+  <body class="login_back">
   <div>
-     <h2 style="font-family: 'Righteous', cursive;margin:30px auto;font-weight:500;font-size:40px;text-align:center;">VOLUNTEER LOGIN</h2>
+    <h2 style="font-family: 'Righteous', cursive;margin:30px auto;font-weight:500;font-size:40px;text-align:center;">VOLUNTEER LOGIN</h2>
   </div>
   <!--<img  style="height:400px;padding:0% 5%;display:inline-block;" src="https://image.flaticon.com/icons/svg/1283/1283187.svg">-->
   <div style="margin:auto;" class="login_card">
-    <img class="contractor_pic1" src="{% static 'img/volunteer1.svg' %}">
+    <img class="contractor_pic1" src="{% static 'img/volunteer.svg' %}">
+    
+    {% if error %}
+    <div style="background-color: #ffebee; color: #c62828; padding: 10px; margin: 10px; border-radius: 5px; text-align: center;">
+      {{ error }}
+    </div>
+    {% endif %}
+    
+    {% if success %}
+    <div style="background-color: #e8f5e8; color: #2e7d32; padding: 10px; margin: 10px; border-radius: 5px; text-align: center;">
+      {{ success }}
+    </div>
+    {% endif %}
+    
     <form action="/volunteerlogin" method="post">
       {% csrf_token %}
-       <label for="uname" style="font-size:17px"><b>&nbsp;&nbsp;&nbsp;User Name</b></label><br>
-       <input type="text" name="uname" class="utext" placeholder="Enter username"><br>
-       <label for="psw" style="font-size:17px"><b>&nbsp;&nbsp;&nbsp;Password</b></label><br>
-       <input type="password" placeholder="Enter Password" class="upass" name="psw" required><br>
-       <center>
-         <button type="submit" class="btn btn-primary btn-lg">Login</button><br>
-       </center>
-       <p style="display:inline-block;margin-right:10px;">Not have an account?</p><a href="{%	url	'account:volunteersignup'	%}"><input type="button" name="signin" value="signup" style="display:inline-block" class="btn btn-success btn-sm"></a>
-     </form>
-   </div>
+      <label for="uname" style="font-size:17px"><b>&nbsp;&nbsp;&nbsp;User Name</b></label><br>
+      <input type="text" name="uname" class="utext" placeholder="Enter username" required><br>
+      <label for="psw" style="font-size:17px"><b>&nbsp;&nbsp;&nbsp;Password</b></label><br>
+      <input type="password" placeholder="Enter Password" class="upass" name="psw" required><br>
+      <center>
+        <button type="submit" class="btn btn-primary btn-lg">Login</button><br>
+      </center>
+      <p style="display:inline-block;margin-right:10px;">Not have an account?</p><a href="{%	url	'account:volunteersignup'	%}"><input type="button" name="signin" value="signup" style="display:inline-block" class="btn btn-primary"></a>
+    </form>
+  </div>
   <img src="{% static 'img/grain.svg' %}" class="grain_img">
   <img src="{% static 'img/grain.svg' %}" class="grain_img1">
 </body>

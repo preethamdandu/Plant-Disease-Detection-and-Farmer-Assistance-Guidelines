@@ -43,10 +43,23 @@
   <!--<img  style="height:400px;padding:0% 5%;display:inline-block;" src="https://image.flaticon.com/icons/svg/1283/1283187.svg">-->
   <div style="margin:auto;" class="login_card">
     <img class="contractor_pic1" src="{% static 'img/farmer.svg' %}">
+    
+    {% if error %}
+    <div style="background-color: #ffebee; color: #c62828; padding: 10px; margin: 10px; border-radius: 5px; text-align: center;">
+      {{ error }}
+    </div>
+    {% endif %}
+    
+    {% if success %}
+    <div style="background-color: #e8f5e8; color: #2e7d32; padding: 10px; margin: 10px; border-radius: 5px; text-align: center;">
+      {{ success }}
+    </div>
+    {% endif %}
+    
     <form action="/farmerlogin" method="post">
       {% csrf_token %}
       <label for="uname" style="font-size:17px"><b>&nbsp;&nbsp;&nbsp;User Name</b></label><br>
-      <input type="text" name="uname" class="utext" placeholder="Enter email"><br>
+      <input type="text" name="uname" class="utext" placeholder="Enter username" required><br>
       <label for="psw" style="font-size:17px"><b>&nbsp;&nbsp;&nbsp;Password</b></label><br>
       <input type="password" placeholder="Enter Password" class="upass" name="psw" required><br>
       <center>

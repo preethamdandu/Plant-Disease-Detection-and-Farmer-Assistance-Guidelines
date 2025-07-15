@@ -29,11 +29,38 @@
   </nav>
   <body style="background-color: #faf3f3">
     <div style="margin:100px 30px;">
-      <h2 style="font-family: 'Righteous', cursive;margin:30px 10px 10px 20px;font-weight:500;font-size:40px;">Predicted tommorow weather conditions</h2>
-      <h5>Temperature (C):{{temp}}<img src="{% static 'img/temp.svg' %}" style="height:35px;margin-left:3px;"></h5>
-      <h5>Precipitation (mm):{{precip}}<img src="{% static 'img/rain.svg' %}" style="height:35px;margin-left:3px;"></h5>
-      <h5>Humidity:{{humidity}}<img src="{% static 'img/humidity.svg' %}" style="height:35px;margin-left:3px;"></h5>
-      <h2 style="font-family: 'Righteous', cursive;margin:30px 10px 10px 20px;font-weight:500;font-size:30px;">Past 30days weather conditions of {{cname}}</h2>
-      <div style="text-align:center">{{loaded_data | safe}}</div>
+      <h2 style="font-family: 'Righteous', cursive;margin:30px 10px 10px 20px;font-weight:500;font-size:40px;">
+        Current weather in {{ cname }}
+      </h2>
+      <h4>
+        {{ current_desc }}<br>
+        Temperature: {{ current_temp }}°C<br>
+        Humidity: {{ current_humidity }}%<br>
+        Precipitation (last hour): {{ current_precip }} mm
+      </h4>
+      <hr>
+      <h2 style="font-family: 'Righteous', cursive;margin:30px 10px 10px 20px;font-weight:500;font-size:40px;">
+        Next 24 hours forecast for {{ cname }}
+      </h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Date/Time</th>
+            <th>Temperature (°C)</th>
+            <th>Precipitation (mm)</th>
+            <th>Humidity (%)</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for entry in forecast_data %}
+          <tr>
+            <td>{{ entry.datetime }}</td>
+            <td>{{ entry.temp }}</td>
+            <td>{{ entry.precip }}</td>
+            <td>{{ entry.humidity }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
     </div>
   </body>

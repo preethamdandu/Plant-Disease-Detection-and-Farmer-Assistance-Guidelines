@@ -1,79 +1,443 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Agro Site</title>
-    {% load static %}
-    <link href="{% static 'styles1.css' %}" rel="stylesheet">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Josefin+Sans:wght@400&display=swap" rel="stylesheet">
-  </head>
+{% extends 'base.html' %}
+{% load static %}
 
-  <nav class="navbar navbar-expand-lg navbar-light sticky-top" style="background-color:#f4f9f9">
-  <a class="navbar-brand" href="/" style="font-family: 'Lobster', cursive;font-size:25px">Agro Site <img src="{% static 'img/leaf.svg' %}" style="height:40px"></a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-  <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="{%	url	'account:logout'	%}" style="color:black">logout</a>
-      </li>
-    </ul>
-  </div>
-  </nav>
-<body>
-<div class="choice_body">
-  <div class="row" style="margin-left:240px">
-  <div class="pricing-column col-lg-5">
-  <div class="card" style="margin-top:150px;">
-    <div class="card-header">
-      <h3 align="center">Disease detection</h3>
+{% block content %}
+<div class="container-fluid mt-4">
+    <!-- Real-time Notifications -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">
+                        <i class="fas fa-bell me-2"></i>Notifications
+                        <span id="notification-count" class="badge bg-danger ms-2">0</span>
+                    </h5>
+                    <button class="btn btn-sm btn-light" onclick="refreshNotifications()">
+                        <i class="fas fa-sync-alt"></i> Refresh
+                    </button>
+                </div>
+                <div class="card-body" id="notifications-container">
+                    <div class="text-center text-muted">
+                        <i class="fas fa-bell-slash fa-2x mb-2"></i>
+                        <p>No new notifications</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="card-body">
-      <img class="contractor_pic1" src="{% static 'img/leaf.svg' %}"><br>
-      <center><h4>Facing trouble with the crop? <br> Upload its pic and get to know the disease</h4>
-      <form action="/diseaseupload" method="GET">
-      <input type="submit" name="a1" class="btn btn-primary" value="Detect"></center>
-      </form>
+
+    <!-- Dashboard Statistics -->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="card bg-primary text-white">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h4 id="pending-count">0</h4>
+                            <p class="mb-0">Pending Questions</p>
+                        </div>
+                        <div class="align-self-center">
+                            <i class="fas fa-question-circle fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-success text-white">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h4 id="answers-count">0</h4>
+                            <p class="mb-0">Total Answers</p>
+                        </div>
+                        <div class="align-self-center">
+                            <i class="fas fa-comments fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-info text-white">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h4 id="resources-count">0</h4>
+                            <p class="mb-0">Resources Shared</p>
+                        </div>
+                        <div class="align-self-center">
+                            <i class="fas fa-share-alt fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-warning text-white">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h4 id="notifications-count">0</h4>
+                            <p class="mb-0">Unread Notifications</p>
+                        </div>
+                        <div class="align-self-center">
+                            <i class="fas fa-bell fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-  </div>
-  <div class="pricing-column col-lg-5">
-  <div class="card" style="margin-top:150px;">
-    <div class="card-header">
-      <h3 align="center">Weather forecasting</h3>
+
+    <!-- Quick Actions -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card shadow">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0"><i class="fas fa-bolt me-2"></i>Quick Actions</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3 mb-3">
+                            <a href="/pending_questions" class="btn btn-outline-primary w-100 h-100 d-flex flex-column align-items-center justify-content-center">
+                                <i class="fas fa-clock fa-2x mb-2"></i>
+                                <span>Pending Questions</span>
+                            </a>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <a href="/questions1" class="btn btn-outline-success w-100 h-100 d-flex flex-column align-items-center justify-content-center">
+                                <i class="fas fa-comments fa-2x mb-2"></i>
+                                <span>Q&A Portal</span>
+                            </a>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <a href="/resource_list" class="btn btn-outline-info w-100 h-100 d-flex flex-column align-items-center justify-content-center">
+                                <i class="fas fa-share-alt fa-2x mb-2"></i>
+                                <span>Resources</span>
+                            </a>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <a href="/message_list" class="btn btn-outline-warning w-100 h-100 d-flex flex-column align-items-center justify-content-center">
+                                <i class="fas fa-envelope fa-2x mb-2"></i>
+                                <span>Messages</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="card-body">
-      <img class="contractor_pic1" src="{% static 'img/weather.svg' %}"><br>
-      <center><h4>Know the future weather conditions <br>at your place</h4>
-      <form action="/citySelect" method="GET">
-      <input type="submit" name="a2" class="btn btn-primary" value="Check"></center>
-      </form>
+
+    <!-- Advanced Search -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card shadow">
+                <div class="card-header bg-dark text-white">
+                    <h5 class="mb-0"><i class="fas fa-search me-2"></i>Advanced Search</h5>
+                </div>
+                <div class="card-body">
+                    <form id="search-form">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" id="search-query" placeholder="Search questions...">
+                            </div>
+                            <div class="col-md-3">
+                                <select class="form-control" id="search-category">
+                                    <option value="">All Questions</option>
+                                    <option value="pending">Pending Only</option>
+                                    <option value="answered">Answered Only</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="date" class="form-control" id="date-from" placeholder="From Date">
+                            </div>
+                            <div class="col-md-2">
+                                <input type="date" class="form-control" id="date-to" placeholder="To Date">
+                            </div>
+                            <div class="col-md-1">
+                                <button type="submit" class="btn btn-primary w-100">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="search-results" class="mt-3"></div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-  </div>
-  </div>
-  <div>
-    <center>
-  <div class="card" style="margin-top:80px;box-shadow: 0 1px 4px 0;width:500px;">
-    <div class="card-header">
-      <h3 align="center">Q/A Portal</h3>
-    </div>
-    <div class="card-body">
-      <img class="contractor_pic1" src="{% static 'img/doubt.png' %}"><br>
-      <center><h4>Clarify the doubts of farmers</h4>
-      <form action="/questions1" method="GET">
-      <input type="submit" name="a2" class="btn btn-primary" value="Open"></center>
-      </form>
-    </div>
-  </div>
-  </div>
-</div></center>
 </div>
-</body>
+
+<!-- Notification Modal -->
+<div class="modal fade" id="notificationModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="notification-title"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" id="notification-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Real-time features
+let notificationInterval;
+let statsInterval;
+
+// Initialize dashboard
+document.addEventListener('DOMContentLoaded', function() {
+    loadDashboardStats();
+    loadNotifications();
+    
+    // Auto-refresh every 30 seconds
+    statsInterval = setInterval(loadDashboardStats, 30000);
+    notificationInterval = setInterval(loadNotifications, 30000);
+    
+    // Search form handler
+    document.getElementById('search-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        performSearch();
+    });
+});
+
+function loadDashboardStats() {
+    fetch('/api/dashboard_stats/')
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                console.error('Error loading stats:', data.error);
+                return;
+            }
+            
+            document.getElementById('pending-count').textContent = data.pending_questions || 0;
+            document.getElementById('answers-count').textContent = data.total_answers || 0;
+            document.getElementById('resources-count').textContent = data.total_resources || 0;
+            document.getElementById('notifications-count').textContent = data.unread_notifications || 0;
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+function loadNotifications() {
+    fetch('/api/notifications/')
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                console.error('Error loading notifications:', data.error);
+                return;
+            }
+            
+            const container = document.getElementById('notifications-container');
+            const countBadge = document.getElementById('notification-count');
+            
+            countBadge.textContent = data.notifications.length;
+            
+            if (data.notifications.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center text-muted">
+                        <i class="fas fa-bell-slash fa-2x mb-2"></i>
+                        <p>No new notifications</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            let html = '';
+            data.notifications.forEach(notification => {
+                html += `
+                    <div class="notification-item border-bottom p-2" data-id="${notification.id}">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div class="flex-grow-1">
+                                <h6 class="mb-1">${notification.title}</h6>
+                                <p class="mb-1 text-muted">${notification.message}</p>
+                                <small class="text-muted">${notification.timestamp}</small>
+                            </div>
+                            <button class="btn btn-sm btn-outline-primary ms-2" onclick="markAsRead(${notification.id})">
+                                Mark Read
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+function markAsRead(notificationId) {
+    fetch(`/api/notifications/${notificationId}/read/`, {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': getCookie('csrftoken')
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Remove the notification from the list
+            const item = document.querySelector(`[data-id="${notificationId}"]`);
+            if (item) {
+                item.remove();
+            }
+            
+            // Update counts
+            loadDashboardStats();
+            loadNotifications();
+        }
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+function performSearch() {
+    const query = document.getElementById('search-query').value;
+    const category = document.getElementById('search-category').value;
+    const dateFrom = document.getElementById('date-from').value;
+    const dateTo = document.getElementById('date-to').value;
+    
+    const params = new URLSearchParams();
+    if (query) params.append('q', query);
+    if (category) params.append('category', category);
+    if (dateFrom) params.append('date_from', dateFrom);
+    if (dateTo) params.append('date_to', dateTo);
+    
+    fetch(`/api/search/?${params.toString()}`)
+        .then(response => response.json())
+        .then(data => {
+            const resultsContainer = document.getElementById('search-results');
+            
+            if (data.error) {
+                resultsContainer.innerHTML = `<div class="alert alert-danger">${data.error}</div>`;
+                return;
+            }
+            
+            if (data.questions.length === 0) {
+                resultsContainer.innerHTML = `
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle me-2"></i>
+                        No questions found matching your criteria.
+                    </div>
+                `;
+                return;
+            }
+            
+            let html = '<div class="list-group">';
+            data.questions.forEach(question => {
+                html += `
+                    <div class="list-group-item">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div class="flex-grow-1">
+                                <h6 class="mb-1">${question.question}</h6>
+                                <p class="mb-1 text-muted">By ${question.farmer} (${question.village})</p>
+                                <small class="text-muted">${question.date} • ${question.answer_count} answers</small>
+                            </div>
+                            <a href="/questions1?question_id=${question.id}" class="btn btn-sm btn-primary">
+                                View Details
+                            </a>
+                        </div>
+                    </div>
+                `;
+            });
+            html += '</div>';
+            
+            resultsContainer.innerHTML = html;
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            document.getElementById('search-results').innerHTML = `
+                <div class="alert alert-danger">
+                    <i class="fas fa-exclamation-triangle me-2"></i>
+                    Error performing search. Please try again.
+                </div>
+            `;
+        });
+}
+
+function refreshNotifications() {
+    fetch('/api/notifications/')
+        .then(response => response.json())
+        .then(data => {
+            let count = 0;
+            let html = '';
+            if (data.notifications && data.notifications.length > 0) {
+                count = data.notifications.length;
+                html = '<ul class="list-group">';
+                data.notifications.forEach(function(notif) {
+                    html += `<li class="list-group-item">
+                        <b>${notif.title}</b><br>
+                        <span>${notif.message}</span><br>
+                        <small>${notif.timestamp}</small>
+                    </li>`;
+                });
+                html += '</ul>';
+            } else {
+                html = `<div class="text-center text-muted">
+                    <i class="fas fa-bell-slash fa-2x mb-2"></i>
+                    <p>No new notifications</p>
+                </div>`;
+            }
+            document.getElementById('notification-count').textContent = count;
+            document.getElementById('notifications-container').innerHTML = html;
+            document.getElementById('notifications-count').textContent = count;
+        });
+}
+
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+// Cleanup intervals when page unloads
+window.addEventListener('beforeunload', function() {
+    if (notificationInterval) clearInterval(notificationInterval);
+    if (statsInterval) clearInterval(statsInterval);
+});
+</script>
+
+<!-- Font Awesome for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<style>
+.notification-item:hover {
+    background-color: #f8f9fa;
+    cursor: pointer;
+}
+
+.card {
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+}
+
+.btn {
+    transition: all 0.2s;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+}
+
+#search-results {
+    max-height: 400px;
+    overflow-y: auto;
+}
+</style>
+{% endblock %}

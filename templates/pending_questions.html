@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow">
+        <div class="card-header bg-success text-white">
+          <h3 class="mb-0" style="font-family: 'Josefin Sans', sans-serif;">Pending Farmer Questions in Your Area</h3>
+        </div>
+        <div class="card-body" style="background-color: #f8f9fa;">
+          {% if pending %}
+            <ul class="list-group list-group-flush">
+              {% for q in pending %}
+                <li class="list-group-item">
+                  <b>{{ q.ques }}</b>
+                  <span class="text-muted">(from {{ q.far.village }}, {{ q.far.district }})</span>
+                  <form action="/questions1" method="GET" class="d-inline float-right">
+                    <input type="hidden" name="question_id" value="{{ q.id }}">
+                    <button type="submit" class="btn btn-primary btn-sm">Answer</button>
+                  </form>
+                </li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            <div class="alert alert-info mt-3 mb-0">No pending questions in your area. Great job!</div>
+          {% endif %}
+        </div>
+        <div class="card-footer text-right">
+          <a href="/volunteerdash" class="btn btn-secondary">Back to Dashboard</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %} 

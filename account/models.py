@@ -35,6 +35,45 @@ class question(models.Model):
     comsf=models.ManyToManyField(far_comment)
     far = models.ForeignKey(farmer, on_delete=models.CASCADE)
 
+class Resource(models.Model):
+    title = models.CharField(max_length=200)
+    description = models.TextField(blank=True)
+    file = models.FileField(upload_to='resources/', blank=True, null=True)
+    link = models.URLField(blank=True, null=True)
+    uploaded_by = models.ForeignKey(volunteer, on_delete=models.CASCADE)
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+
+class Message(models.Model):
+    sender_farmer = models.ForeignKey(farmer, on_delete=models.CASCADE, null=True, blank=True)
+    sender_volunteer = models.ForeignKey(volunteer, on_delete=models.CASCADE, null=True, blank=True)
+    receiver_farmer = models.ForeignKey(farmer, on_delete=models.CASCADE, related_name='received_messages', null=True, blank=True)
+    receiver_volunteer = models.ForeignKey(volunteer, on_delete=models.CASCADE, related_name='received_messages', null=True, blank=True)
+    message = models.TextField()
+    timestamp = models.DateTimeField(auto_now_add=True)
+    is_read = models.BooleanField(default=False)
+
+class Notification(models.Model):
+    NOTIFICATION_TYPES = [
+        ('question', 'New Question'),
+        ('answer', 'New Answer'),
+        ('message', 'New Message'),
+        ('resource', 'New Resource'),
+    ]
+    
+    recipient_farmer = models.ForeignKey(farmer, on_delete=models.CASCADE, null=True, blank=True)
+    recipient_volunteer = models.ForeignKey(volunteer, on_delete=models.CASCADE, null=True, blank=True)
+    notification_type = models.CharField(max_length=20, choices=NOTIFICATION_TYPES)
+    title = models.CharField(max_length=200)
+    message = models.TextField()
+    timestamp = models.DateTimeField(auto_now_add=True)
+    is_read = models.BooleanField(default=False)
+    related_question = models.ForeignKey(question, on_delete=models.CASCADE, null=True, blank=True)
+    related_message = models.ForeignKey(Message, on_delete=models.CASCADE, null=True, blank=True)
+    related_resource = models.ForeignKey(Resource, on_delete=models.CASCADE, null=True, blank=True)
+
+    class Meta:
+        ordering = ['-timestamp']
+
 
 """class question(models.Model):
     ques=models.TextField()

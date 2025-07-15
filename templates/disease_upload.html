@@ -42,13 +42,20 @@
   </center>
 <h2 style="font-family: 'Righteous', cursive;margin:30px 10px 10px 20px;font-weight:500;font-size:40px;">Uplaod Image for Classification</h2>
 <br>
+
+{% if error %}
+<div style="background-color: #ffebee; color: #c62828; padding: 10px; margin: 10px; border-radius: 5px; text-align: center;">
+  {{ error }}
+</div>
+{% endif %}
+
 <form method="post" enctype="multipart/form-data" action="predictImage">
 {% csrf_token %}
 <center>
 <table class="job_table" cellpadding="10">
   <tr>
       <td style="font-size:20px;">Upload Image File Here:</td>
-      <td><input name="filePath" type="file"></td>
+      <td><input name="filePath" type="file" required></td>
   </tr>
   <tr>
       <td style="font-size:20px;">Select language</td>
